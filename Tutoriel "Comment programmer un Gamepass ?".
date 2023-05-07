@@ -1,0 +1,11 @@
+local Players = game:GetService("Players")                                        -- Récupération de l'élément Players
+local MarketPlaceService = game:GetService("MarketplaceService")                  -- Récupération du MarketplaceService
+
+local Gamepass_ID = 13245678                                                      -- ID du Gamepass
+
+Players.PlayerAdded:Connect(function(player)                                      -- Lorsqu'un joueur rejoint le jeu
+  if MarketPlaceService:UserOwnsGamePassAsync(player.UserId, Gamepass_ID) then    -- Verifie si le joueur a le Gamepass
+      local Tool = game.ReplicatedStorage.Tool:Clone()                            -- Récupération du Tool
+      Tool.Parent = game.StarterPack                                              -- Placement de Tool dans le BackPack
+  end
+end)
