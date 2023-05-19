@@ -1,0 +1,26 @@
+local Players = game:GetService("Players")
+local DataStroreService = game:GetService("DataStoreService")
+local Player_Cash = DataStroreService:GetDataStore("Cash")
+
+
+Players.PlayerAdded:Connect(function(player)
+
+  local leaderstats = Instance.new("Folder", player)
+  leaderstats.Name = "leaderstats"
+  
+  local Cash = Instance.new("IntValue", leaderstats)
+  Cash.Name = "Cash"
+  Cash.Value = Player_Cash:GetAsync(player.UserId) or 0
+  
+  
+  Players.PlayerRemoving:Connect(function(plr)
+    Player_Cash:SetAsync(plr.UserId, Cash.Value)
+  end)
+  
+  
+  while true do
+    wait(300)
+    Player_Cash:SetAsync(player.UserId, Cash.Value)
+  end
+  
+end)
